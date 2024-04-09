@@ -1,0 +1,8 @@
+C:\Users\pedro.hfalmeida3\source\repos\Livraria\Livraria\obj\Debug\Livraria.csproj.AssemblyReference.cache
+C:\Users\pedro.hfalmeida3\source\repos\Livraria\Livraria\obj\Debug\Livraria.csproj.SuggestedBindingRedirects.cache
+C:\Users\pedro.hfalmeida3\source\repos\Livraria\Livraria\obj\Debug\Livraria.csproj.CoreCompileInputs.cache
+C:\Users\pedro.hfalmeida3\source\repos\Livraria\Livraria\bin\Debug\Livraria.exe.config
+C:\Users\pedro.hfalmeida3\source\repos\Livraria\Livraria\bin\Debug\Livraria.exe
+C:\Users\pedro.hfalmeida3\source\repos\Livraria\Livraria\bin\Debug\Livraria.pdb
+C:\Users\pedro.hfalmeida3\source\repos\Livraria\Livraria\obj\Debug\Livraria.exe
+C:\Users\pedro.hfalmeida3\source\repos\Livraria\Livraria\obj\Debug\Livraria.pdb
