@@ -151,6 +151,7 @@ namespace Livraria
 
                     //Excluir
                     model.Excluir(CPF);
+                    Console.WriteLine("Usuário Desativado" );
                     break;
 
                 default:

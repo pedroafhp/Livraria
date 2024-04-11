@@ -10,12 +10,13 @@ namespace Livraria
     {
         
         ControlPessoa controlePessoa;
-
+        ControlLivro controleLivro;
         public int opcao;
 
         public Menu()
         {
             controlePessoa = new ControlPessoa();
+            controleLivro= new ControlLivro();
             opcao = 0;
         }//Fim do Menu
 
@@ -45,8 +46,8 @@ namespace Livraria
                             controlePessoa.Operacao();
                             break;
                         case 2:
-
-                            break;
+                            controleLivro.Operacao();
+                        break;
 
                         case 3:
 
