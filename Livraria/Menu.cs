@@ -11,12 +11,14 @@ namespace Livraria
         
         ControlPessoa controlePessoa;
         ControlLivro controleLivro;
+        ControlReserva controleReserva;
         public int opcao;
 
         public Menu()
         {
             controlePessoa = new ControlPessoa();
-            controleLivro= new ControlLivro();
+            controleLivro = new ControlLivro();
+            controleReserva = new ControlReserva();
             opcao = 0;
         }//Fim do Menu
 
@@ -42,15 +44,17 @@ namespace Livraria
                         case 0:
                             Console.WriteLine("Obrigado!");
                             break;
+
                         case 1:
                             controlePessoa.Operacao();
                             break;
+
                         case 2:
                             controleLivro.Operacao();
                         break;
 
                         case 3:
-
+                            controleReserva.Operacao();
                             break;
 
                         case 4:

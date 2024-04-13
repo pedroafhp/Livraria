@@ -16,6 +16,7 @@ namespace Livraria
         private string ISBN;
         private int quantidade;
         private int preco;
+        private string situacao;
 
         //Método Construtor
         public Livro()
@@ -79,9 +80,15 @@ namespace Livraria
             set { this.preco = value; }
         }//Fim do Modificar
 
+        public string ConsultarSituacao
+        {
+            get { return situacao; }
+            set { this.situacao = value; }
+        }//Fim do Modificar
+
         //Métodos - CRUD
         public void CadastrarLivro(int codigo, string titulo, string autor, string editora,
-            string genero, string ISBN, int quantidade, int preco)
+            string genero, string ISBN, int quantidade, int preco, string situacao)
         {
             ConsultarCodigo = 0;
             ConsultarTitulo = "";
@@ -91,12 +98,13 @@ namespace Livraria
             ConsultarISBN = "";
             ConsultarQuantidade = 0;
             ConsultarPreço = 0;
+            ConsultarSituacao = "Ativo";
         }//Fim do Método
 
         public string ConsultarIndividual(string ISBN)
         {
             string consulta = "";
-            if (ConsultarISBN == ISBN)
+            if (ConsultarCodigo == codigo)
             {
                 consulta =        "\nCodigo: "      + ConsultarCodigo +
                                   "\nTitulo: "      + ConsultarTitulo +
@@ -110,6 +118,16 @@ namespace Livraria
             else
             {
                 consulta = "Número de ISBN não é valido!";
+            }
+            return consulta;
+        }//Fim do Método
+
+        public double ConsultarPrecoIndividual(int codigo)
+        {
+            double consulta = 0;
+            if (ConsultarCodigo == codigo)
+            {
+                consulta = ConsultarPreço;
             }
             return consulta;
         }//Fim do Método
@@ -138,11 +156,19 @@ namespace Livraria
             }//Fim do If
         }//Fim do Método
 
-        public void Excluir(string ISBN)
+        public void AtualizarSituacao(int codigo, string situacao)
         {
-            if (ConsultarISBN == ISBN)
+            if (ConsultarCodigo == codigo)
             {
-                ConsultarISBN = "Inativo";
+                ConsultarSituacao = situacao;
+            }//Fim do If
+        }//Fim do Método
+
+        public void Excluir(int codigo)
+        {
+            if (ConsultarCodigo == codigo)
+            {
+                ConsultarSituacao = "Inativo";
 
             }//Fim do If
         }//Fim do Excluir

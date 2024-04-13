@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Livraria
 {
-    class ControlLivro
+    class ControlReserva
     {
-        Livro model;//Conectar Com a Classe Pessoa
+        Reserva model;//Conectar Com a Classe Pessoa
         private int opcao;
-        public ControlLivro()
+        public ControlReserva()
         {
-            model = new Livro();//Acesso a Todos os Métodos da Classe Pessoa
+            model = new Reserva();//Acesso a Todos os Métodos da Classe Pessoa
         }//Fim do Construtor
 
         public int ModificarOpcao
@@ -23,14 +23,11 @@ namespace Livraria
 
         public void Menu()
         {
-            Console.WriteLine("Menu - Livro" +
-                             "\nEscolha Uma das Opções Abaixo: "   +
-                             "\n1. Cadastrar Livro" +
-                             "\n2. Consultar Livro" +
-                             "\n3. Atualizar Livro"              +
-                             "\n4. Atualizar Quantidade"            +
-                             "\n5. Atualizar Preço"                 +
-                             "\n6. Excluir");
+            Console.WriteLine("Menu - Livro"                        +
+                             "\nEscolha Uma das Opções Abaixo: "    +
+                             "\n1. Reservar Livro"                  + 
+                             "\n2. Atualizar Quantidade"            +
+                             "\n3. Excluir");
             ModificarOpcao = Convert.ToInt32(Console.ReadLine());
         }//Fim do Menu
 
@@ -43,29 +40,17 @@ namespace Livraria
                     Console.WriteLine("Informe o Código do Livro: ");
                     int codigo = Convert.ToInt32(Console.ReadLine());
 
-                    Console.WriteLine("Informe o Título do Livro: ");
-                    string titulo = Console.ReadLine();
+                    Console.WriteLine("Informe o Livro:que Deseja Reservar ");
+                    string livro = Console.ReadLine();
 
-                    Console.WriteLine("Informe o Autor do Livro: ");
-                    string autor = Console.ReadLine();
+                    Console.WriteLine("Informe o CPF do Usuário: ");
+                    string pessoa = Console.ReadLine();
 
-                    Console.WriteLine("Informe a Editora do Livro: ");
-                    string editora = Console.ReadLine();
+                    Console.WriteLine("Informe a Quantidade que Deseja Reservar: ");
+                    string quantidade = Console.ReadLine();
 
-                    Console.WriteLine("Informe o Genero do Livro: ");
-                    string genero = Console.ReadLine();
-
-                    Console.WriteLine("Informe o ISBN do Livro: ");
-                    string ISBN = Console.ReadLine();
-
-                    Console.WriteLine("Informe a Quantidade de Livros: ");
-                    int quantidade = Convert.ToInt32(Console.ReadLine());
-
-                    Console.WriteLine("Informe o Valor do Livro: ");
-                    int preco = Convert.ToInt32(Console.ReadLine());
-
-                    //Chamar o Método Cadastrar
-                    model.CadastrarLivro(codigo, titulo, autor, editora, genero, ISBN, quantidade, preco, "Ativo");
+                    //Chamar o Método Consultar
+                    model.ConsultarReserva(codigo, livro, pessoa, quantidade);
                     break;
 
                 case 2:
@@ -73,18 +58,18 @@ namespace Livraria
                     codigo = Convert.ToInt32(Console.ReadLine());
 
                     //Mostrar os Dados
-                    Console.WriteLine(model.ConsultarIndividual(codigo));
+                    Console.WriteLine(model.ConsultarReserva(codigo));
                     break;
 
                 case 3:
-                    Console.WriteLine("Informe o Codigo do Livro: ");
+                    Console.WriteLine("Informe o Codigo: ");
                     codigo = Convert.ToInt32(Console.ReadLine());
 
-                    Console.WriteLine("Informe a Nova Versão: ");
-                    titulo = Console.ReadLine();
+                    Console.WriteLine("Informe o Livro que Deseja Reservar: ");
+                    livro = Console.ReadLine();
 
                     //Atualizar
-                    titulo = model.ConsultarTitulo;
+                    livro = model.ConsultarLivro;
                     break;
 
                 case 4:
@@ -92,7 +77,7 @@ namespace Livraria
                     codigo = Convert.ToInt32(Console.ReadLine());
 
                     Console.WriteLine("Informe a Nova Quantidade: ");
-                    quantidade = Convert.ToInt32(Console.ReadLine());
+                    quantidade = Convert.ToDouble32(Console.ReadLine());
 
                     //Atualizar
                     quantidade = model.ConsultarQuantidade;
@@ -115,7 +100,7 @@ namespace Livraria
 
                     //Excluir
                     model.Excluir(codigo);
-                    codigo = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Livro Desativado");
                     break;
 
                 default:
@@ -124,5 +109,5 @@ namespace Livraria
             }//Fim do Switch
 
         }//Fim da Operação
-    }//Fim do Método
-}//Fim do Projeto
+    }//Fim da Classe
+}//Fim do Método

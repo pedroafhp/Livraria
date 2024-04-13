@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace Livraria
         private string livro;
         private string pessoa;
         private int quantidade;
-        private string ISBN;
+        private string situacao;
  
         //Método Construtor
         public Reserva()
@@ -21,7 +22,7 @@ namespace Livraria
             ConsultarLivro = "";
             ConsultarPessoa = "";
             ConsultarQuantidade = 0;
-            ConsultarISBN = "";
+            ConsultarSituacao = "";
 
         }//Fim do Construtor
 
@@ -50,14 +51,14 @@ namespace Livraria
             set { this.quantidade = value; }
         }//Fim do Modificar
 
-        public string ConsultarISBN
+        public string ConsultarSituacao
         {
-            get { return ISBN; }
-            set { this.ISBN = value; }
+            get { return situacao; }
+            set { this.situacao = value; }
         }//Fim do Modificar
 
         //Métodos - CRUD
-        public void CadastrarLivro(int codigo, string livro, string pessoa, int quantidade)
+        public void ConsultarReserva(int codigo, string livro, string pessoa, int quantidade, string ISBN)
         {
             ConsultarCodigo = 0;
             ConsultarLivro = "";
@@ -65,28 +66,19 @@ namespace Livraria
             ConsultarQuantidade = 0;
         }//Fim do Método
 
-        public string ConsultarIndividual(string ISBN)
+        public void AtualizarSituacao(int codigo, string situacao)
         {
-            string consulta = "";
-            if (ConsultarISBN == ISBN)
+            if (ConsultarCodigo == codigo)
             {
-                consulta =        "\nCodigo: "     + ConsultarCodigo +
-                                  "\nLivro: "      + ConsultarLivro +
-                                  "\nPessoa: "     + ConsultarPessoa +
-                                  "\nQuantidade: " + ConsultarQuantidade;
-            }
-            else
-            {
-                consulta = "Número de ISBN não é valido!";
-            }
-            return consulta;
+                ConsultarSituacao = situacao;
+            }//Fim do If
         }//Fim do Método
 
-        public void Excluir(string ISBN)
+        public void Excluir(int codigo)
         {
-            if (ConsultarISBN == ISBN)
+            if (ConsultarCodigo == codigo)
             {
-                ConsultarISBN = "Inativo";
+                ConsultarSituacao = "Inativo";
 
             }//Fim do If
         }//Fim do Excluir
