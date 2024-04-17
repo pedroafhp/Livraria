@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Livraria
 {
-    class ControlReserva
+    class ControlCompra
     {
-        Reserva model;//Conectar Com a Classe Pessoa
+        Compra model;//Conectar Com a Classe Pessoa
         private int opcao;
-        public ControlReserva()
+        public ControlCompra()
         {
-            model = new Reserva();//Acesso a Todos os Métodos da Classe Pessoa
+            model = new Compra();//Acesso a Todos os Métodos da Classe Pessoa
         }//Fim do Construtor
 
         public int ModificarOpcao
@@ -23,10 +23,10 @@ namespace Livraria
 
         public void Menu()
         {
-            Console.WriteLine("Menu - Livro"                        +
+            Console.WriteLine("Menu - Compra"                       +
                              "\nEscolha Uma das Opções Abaixo: "    +
-                             "\n1. Reservar Livro"                  + 
-                             "\n2. Atualizar Quantidade"            +
+                             "\n1. Informe a Forma de Pagamento"    +
+                             "\n2. Cancelar Compra"                 +
                              "\n3. Excluir");
             ModificarOpcao = Convert.ToInt32(Console.ReadLine());
         }//Fim do Menu
@@ -37,8 +37,8 @@ namespace Livraria
             switch (ModificarOpcao)
             {
                 case 1:
-                    Console.WriteLine("Informe o Código do Livro: ");
-                    int codigo = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Informe a Forma de Pagamento: ");
+                    string pagamento = modelLivro.AtualizarEstoque = Console.ReadLine();
 
                     Console.WriteLine("Informe o Livro:que Deseja Reservar ");
                     string livro = Console.ReadLine();
@@ -53,7 +53,7 @@ namespace Livraria
                     double preco = Convert.ToDouble(Console.ReadLine());
 
                     //Chamar o Método Consultar
-                    model.ConsultarReserva(codigo, livro, pessoa, quantidade, preco);
+                    model.EfetuarCompra(codigo, livro, pessoa, quantidade, preco);
                     break;
 
                 case 2:
@@ -112,5 +112,6 @@ namespace Livraria
             }//Fim do Switch
 
         }//Fim da Operação
-    }//Fim da Classe
-}//Fim do Método
+
+    }//Fim do Método
+}//Fim do Projeto

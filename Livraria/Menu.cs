@@ -12,6 +12,7 @@ namespace Livraria
         ControlPessoa controlePessoa;
         ControlLivro controleLivro;
         ControlReserva controleReserva;
+        ControlCompra controleCompra;
         public int opcao;
 
         public Menu()
@@ -19,6 +20,7 @@ namespace Livraria
             controlePessoa = new ControlPessoa();
             controleLivro = new ControlLivro();
             controleReserva = new ControlReserva();
+            controleCompra = new ControlCompra();
             opcao = 0;
         }//Fim do Menu
 
@@ -58,7 +60,7 @@ namespace Livraria
                             break;
 
                         case 4:
-
+                            controleCompra.Operacao();
                             break;
 
                     default:

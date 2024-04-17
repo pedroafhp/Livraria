@@ -13,6 +13,7 @@ namespace Livraria
         private string livro;
         private string pessoa;
         private int quantidade;
+        private double preco;
         private string situacao;
  
         //Método Construtor
@@ -22,6 +23,7 @@ namespace Livraria
             ConsultarLivro = "";
             ConsultarPessoa = "";
             ConsultarQuantidade = 0;
+            ConsultarPreco = 0;
             ConsultarSituacao = "";
 
         }//Fim do Construtor
@@ -51,6 +53,12 @@ namespace Livraria
             set { this.quantidade = value; }
         }//Fim do Modificar
 
+        public double ConsultarPreco
+        {
+            get { return preco; }
+            set { this.preco = value; }
+        }//Fim do Modificar
+
         public string ConsultarSituacao
         {
             get { return situacao; }
@@ -58,12 +66,13 @@ namespace Livraria
         }//Fim do Modificar
 
         //Métodos - CRUD
-        public void ConsultarReserva(int codigo, string livro, string pessoa, int quantidade, string ISBN)
+        public void ConsultarReserva(int codigo, string livro, string pessoa, int quantidade, double preco)
         {
             ConsultarCodigo = 0;
             ConsultarLivro = "";
             ConsultarPessoa = "";
             ConsultarQuantidade = 0;
+            ConsultarPreco = 0;
         }//Fim do Método
 
         public void AtualizarSituacao(int codigo, string situacao)

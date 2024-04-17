@@ -106,7 +106,7 @@ namespace Livraria
                     preco = Convert.ToInt32(Console.ReadLine());
 
                     //Atualizar
-                    preco = model.ConsultarPreço;
+                    preco = model.ConsultarPreco;
                     break;
 
                 case 6:

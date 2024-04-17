@@ -8,79 +8,35 @@ namespace Livraria
 {
     class Compra
     {
+        Pessoa modelPessoa;
         Livro modelLivro;
-        private int codigo;
-        private string pessoa;
-        private int codigoLivro;
-        private int quantidade;
-        private double preco;
-        private double total;
-        private string situacao;
+        private double precoTotal;
 
         //Método Construtor
         public Compra()
         {
-            ConsultarCodigo = 0;
-            ConsultarPessoa = "";
-            ConsultarLivro = 0;
-            ConsultarQuantidade = 0;
-            ConsultarPreco = 0;
-            ConsultarTotal = 0;
-            ConsultarSituacao = "";
+            modelPessoa = new Pessoa();
+            modelLivro = new Livro();
+
         }//Fim do Construtor
 
         //Método Modificadores = Gets e Sets
-        public int ConsultarCodigo
+        public double ConsultarPrecoTotal
         {
-            get { return codigo; }
-            set { this.codigo = value; }
-        }//Fim do Modificar
-
-        public string ConsultarPessoa
-        {
-            get { return pessoa; }
-            set { this.pessoa = value; }
-        }//Fim do Modificar
-
-        public int ConsultarLivro
-        {
-            get { return codigoLivro; }
-            set { this.codigoLivro = value; }
-        }//Fim do Modificar
-
-        public int ConsultarQuantidade
-
-        {
-            get { return quantidade; }
-            set { this.quantidade = value; }
-        }//Fim do Modificar
-
-        public double ConsultarPreco
-        {
-            get { return preco; }
-            set { this.preco = value; }
-        }//Fim do Modificar
-
-        public double ConsultarTotal
-        {
-            get { return total; }
-            set { this.total = value; }
-        }//Fim do Modificar
-
-        public string ConsultarSituacao
-        {
-            get { return situacao; }
-            set { this.situacao = value; }
+            get { return precoTotal; }
+            set { this.precoTotal = value; }
         }//Fim do Modificar
 
         //Métodos - CRUD
-        public void EfeturarCompra(int codigo, string pessoa, int codigoLivro, int quantidade, int preco) 
+        public void EfeturarCompra(int codigo, int CPF, string pessoa, string telefone, int codigoLivro, int quantidade, double preco, double precoTotal) 
         {
-            ConsultarCodigo = 0;
-            ConsultarPessoa = "";
-            ConsultarQuantidade = 0;
+            ConsultarCPF = modelPessoa.ConsultarIndividual(CPF);
+            ConsultarPessoa = modelPessoa.ConsultarIndividual(pessoa);
+            ConsultarTelefone = modelPessoa.AtualizarTelefone(telefone);
+            ConsultarCodigo = modelLivro.ConsultarPrecoIndividual(codigo);
+            ConsultarQuantidade = modelLivro.AtualizarEstoque(quantidade);
             ConsultarPreco = modelLivro.ConsultarPrecoIndividual(codigoLivro);
-            ConsultarTotal = ConsultarQuantidade * ConsultarPreco;
+            ConsultarPrecoTotal = ConsultarPreco * ConsultarQuantidade(preco, quantidade);
         }//Fim do Método
 
         public string ConsultarIndividual(int codigo)

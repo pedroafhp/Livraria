@@ -28,7 +28,7 @@ namespace Livraria
             ConsultarGenero = "";
             ConsultarISBN = "";
             ConsultarQuantidade = 0;
-            ConsultarPreço = 0;
+            ConsultarPreco = 0;
         }//Fim do Construtor
 
         //Método Modificadores = Gets e Sets
@@ -74,7 +74,7 @@ namespace Livraria
             set { this.quantidade = value; }
         }//Fim do Modificar
 
-        public int ConsultarPreço
+        public int ConsultarPreco
         {
             get { return preco; }
             set { this.preco = value; }
@@ -97,11 +97,11 @@ namespace Livraria
             ConsultarGenero = "";
             ConsultarISBN = "";
             ConsultarQuantidade = 0;
-            ConsultarPreço = 0;
+            ConsultarPreco = 0;
             ConsultarSituacao = "Ativo";
         }//Fim do Método
 
-        public string ConsultarIndividual(string ISBN)
+        public string ConsultarIndividual(int codigo)
         {
             string consulta = "";
             if (ConsultarCodigo == codigo)
@@ -113,7 +113,7 @@ namespace Livraria
                                   "\nGenero: "      + ConsultarGenero +
                                   "\nIBSN: "        + ConsultarISBN +
                                   "\nQuantidade: "  + ConsultarQuantidade +
-                                  "\nPreço: "       + ConsultarPreço;
+                                  "\nPreço: "       + ConsultarPreco;
             }
             else
             {
@@ -127,7 +127,7 @@ namespace Livraria
             double consulta = 0;
             if (ConsultarCodigo == codigo)
             {
-                consulta = ConsultarPreço;
+                consulta = ConsultarPreco;
             }
             return consulta;
         }//Fim do Método
@@ -150,9 +150,9 @@ namespace Livraria
 
         public void AtualizarValor(int preco)
         {
-            if (ConsultarPreço != preco)
+            if (ConsultarPreco != preco)
             {
-                ConsultarPreço = preco;
+                ConsultarPreco = preco;
             }//Fim do If
         }//Fim do Método
 
