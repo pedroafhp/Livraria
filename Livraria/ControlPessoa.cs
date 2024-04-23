@@ -8,11 +8,14 @@ namespace Livraria
 {
     class ControlPessoa
     {
+        DAOPessoa person;//Conexão com Pessoa
         Pessoa model;//Conectar Com a Classe Pessoa
         private int opcao;
         public ControlPessoa()
         {
+            person = new DAOPessoa();
             model = new Pessoa();//Acesso a Todos os Métodos da Classe Pessoa
+            ModificarOpcao = 0;
         }//Fim do Construtor
 
         public int ModificarOpcao
@@ -68,7 +71,7 @@ namespace Livraria
                     string cargo = Console.ReadLine();
 
                     //Chamar o Método Cadastrar
-                    model.Cadastrar(CPF, nome, endereco, telefone, dtaNascimento, login, senha, cargo);
+                    person.Inserir(CPF, nome, endereco, telefone, dtaNascimento, login, senha, "Ativo", cargo);
                     break;
 
                     case 2:
