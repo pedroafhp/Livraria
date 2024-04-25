@@ -29,7 +29,7 @@ namespace Livraria
         //Construtor
         public DAOPessoa() 
         {
-            conexao = new MySqlConnection("server=localhost;DataBase=livrariaTI20N;Uid=root;Password=");
+            conexao = new MySqlConnection("server=localhost;DataBase=livrariaTI20N;Uid=root;Password=;Convert Zero DateTime=True");
             try
             {
                 conexao.Open();//Abrir a Conexão
@@ -47,9 +47,15 @@ namespace Livraria
         {
             try
             {
+                MySqlParameter parameter = new MySqlParameter();
+                parameter.ParameterName = "@Date";
+                parameter.MySqlDbType = MySqlDbType.Date;
+                parameter.Value = dtaNascimento.Year + "-" + dtaNascimento.Month + "-" + dtaNascimento.Day;
+
                 //Declarei as Variáveis e Preparei o Comando
-                dados = $"('{CPF}','{nome}','{endereco}','{telefone}','{dtaNascimento}','{login}','{senha}','{situacao}','{posicao}')";
+                dados = $"('{CPF}','{nome}','{endereco}','{telefone}','{parameter.Value}','{login}','{senha}','{situacao}','{posicao}')";
                 comando = $"Insert into pessoa values {dados}";
+
                 //Engatilhar a Inserção do Banco
                 MySqlCommand sql = new MySqlCommand(comando, conexao);
                 string resultado = "" + sql.ExecuteNonQuery();//Ctrl + Enter
@@ -103,13 +109,22 @@ namespace Livraria
             {
                 CPF[i] = Convert.ToInt64(leitura["CPF"]);
                 nome[i] = leitura["Nome"] + "";
-                endereco[i] = leitura["Endereço"] + "";
+                endereco[i] = leitura["Endereco"] + "";
                 telefone[i] = leitura["Telefone"] + "";
-                dtaNascimento[i] = Convert.ToDateTime(leitura["Data de Nascimento"]);
+
+                //Convertendo para o Padrão de Dia/Mês/Ano
+                MySqlParameter parameter = new MySqlParameter();
+                parameter.ParameterName = "@Date";
+                parameter.MySqlDbType = MySqlDbType.Date;
+                parameter.Value =  Convert.ToDateTime(leitura["dtNascimento"]).Day + "/"   +
+                                   Convert.ToDateTime(leitura["dtNascimento"]).Month + "/" + 
+                                   Convert.ToDateTime(leitura["dtNascimento"]).Year;
+                dtaNascimento[i] = Convert.ToDateTime(parameter.Value);
+
                 login[i] = leitura["Login"] + "";
                 senha[i] = leitura["Senha"] + "";
-                situacao[i] = leitura["Situação"] + "";
-                posicao[i] = leitura["Posição"] + "";
+                situacao[i] = leitura["Situacao"] + "";
+                posicao[i] = leitura["Posicao"] + "";
                 i++;
                 contador++;
             }//Fim do While
@@ -122,7 +137,7 @@ namespace Livraria
             msg = "";
             for(i = 0; i < contador; i++) 
             {
-                msg += "CPF: "                      + CPF[i] +
+                msg += "\nCPF: "                    + CPF[i] +
                        ", Nome: "                   + nome[i] +
                        ", Endereço: "               + endereco[i] +
                        ", Telefone: "               + telefone[i] +
@@ -134,6 +149,77 @@ namespace Livraria
             }//Fim do For
 
             return msg;
+        }//Fim do Método
+
+        public string ConsultarIndividual(long codCPF)
+        {
+            PreencherVetor();
+            for(i = 0; i < contador; i++)
+            {
+                if (CPF[i] == codCPF)
+                {
+                    msg = "CPF: "                    + CPF[i] +
+                          ", Nome: "                 + nome[i] +
+                          ", Endereco: "             + endereco[i] +
+                          ", Telefone: "             + telefone[i] +
+                          ", Data de Nascimento: "   + dtaNascimento[i] +
+                          ", Login: "                + login[i] +
+                          ", Senha: "                + senha[i] +
+                          ", Situacao: "             + situacao[i] +
+                          ", Cargo: "                + posicao[i];
+                    return msg;
+                }//Fim do If
+            }//Fim do For
+
+            return "Código Informado Não é Válido!";
+        }//Fim do Consultar Individual
+
+        public string Atualizar(long codCPF, string campo, string novoDado)
+        {
+            try
+            {
+                string query = "Update Pessoa Set " + campo + " = '" + novoDado + "' Where CPF = '" + codCPF + "'";
+                //Executar o Comando
+                MySqlCommand sql = new MySqlCommand(query, conexao);
+                string resultado = "" + sql.ExecuteNonQuery();
+                return resultado + " Linha Afetada!";
+            }
+            catch (Exception ex)
+            {
+                return "Algo Deu Errado!\n\n\n" + ex;
+            }
+        }//Fim do Método
+
+        public string Atualizar(long codCPF, string campo, DateTime novoDado)
+        {
+            try
+            {
+                string query = "Update Pessoa Set " + campo + " = '" + novoDado + "' Where CPF = '" + codCPF + "'";
+                //Executar o Comando
+                MySqlCommand sql = new MySqlCommand(query, conexao);
+                string resultado = "" + sql.ExecuteNonQuery();
+                return resultado + " Linha Afetada!";
+            }
+            catch (Exception ex)
+            {
+                return "Algo Deu Errado!\n\n\n" + ex;
+            }
+        }//Fim do Método
+
+        public string Excluir(long codCPF)
+        {
+            try
+            {
+                string query = "Update Pessoa Set Situacao = 'Inativo' Where CPF = '" + codCPF + "'";   
+                //Executar o Comando
+                MySqlCommand sql = new MySqlCommand(query, conexao);
+                string resultado = "" + sql.ExecuteNonQuery();
+                return resultado + " Linha Afetada!";
+            }
+            catch (Exception ex)
+            {
+                return "Algo Deu Errado!\n\n\n" + ex;
+            }
         }//Fim do Método
 
     }//Fim da Classe
