@@ -98,6 +98,7 @@
     <Compile Include="ControlLivro.cs" />
     <Compile Include="ControlPessoa.cs" />
     <Compile Include="ControlReserva.cs" />
+    <Compile Include="DAOLivro.cs" />
     <Compile Include="DAOPessoa.cs" />
     <Compile Include="Livro.cs" />
     <Compile Include="Menu.cs" />
