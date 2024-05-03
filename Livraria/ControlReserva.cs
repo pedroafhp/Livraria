@@ -8,10 +8,13 @@ namespace Livraria
 {
     class ControlReserva
     {
+        DAOReserva reserv;//Conexão com Reserva
+        DAOLivro li;
         Reserva model;//Conectar Com a Classe Pessoa
         private int opcao;
         public ControlReserva()
         {
+            reserv = new DAOReserva();
             model = new Reserva();//Acesso a Todos os Métodos da Classe Pessoa
         }//Fim do Construtor
 
@@ -25,9 +28,12 @@ namespace Livraria
         {
             Console.WriteLine("Menu - Livro"                        +
                              "\nEscolha Uma das Opções Abaixo: "    +
-                             "\n1. Reservar Livro"                  + 
-                             "\n2. Atualizar Quantidade"            +
-                             "\n3. Excluir");
+                             "\n1. Reservar Livro"                  +
+                             "\n2. Consultar Tudo"                  +
+                             "\n3. Consultar Individual"            +
+                             "\n4. Informar Dados do Usuário"       +
+                             "\n5. Atualizar Quantidade"            +
+                             "\n6. Excluir");
             ModificarOpcao = Convert.ToInt32(Console.ReadLine());
         }//Fim do Menu
 
@@ -49,52 +55,45 @@ namespace Livraria
                     Console.WriteLine("Informe a Quantidade que Deseja Reservar: ");
                     int quantidade = Convert.ToInt32(Console.ReadLine());
 
-                    Console.WriteLine("Informe a Quantidade que Deseja Reservar: ");
-                    double preco = Convert.ToDouble(Console.ReadLine());
+                    double preco = li.ConsultarPreco(codigo);
 
                     //Chamar o Método Consultar
-                    model.ConsultarReserva(codigo, livro, pessoa, quantidade, preco);
+                    reserv.Inserir(codigo, livro, pessoa, quantidade, preco, "Ativo");
                     break;
 
                 case 2:
+                    //Mostrar os Dados
+                    Console.WriteLine(reserv.ConsultarTudo());
+                    break;
+
+                case 3:
                     Console.WriteLine("Informe o Codigo do Livro que Deseja Consultar: ");
                     codigo = Convert.ToInt32(Console.ReadLine());
 
                     //Mostrar os Dados
-                    codigo = Convert.ToInt32(Console.ReadLine());
-                    break;
-
-                case 3:
-                    Console.WriteLine("Informe o Codigo: ");
-                    codigo = Convert.ToInt32(Console.ReadLine());
-
-                    Console.WriteLine("Informe o Livro que Deseja Reservar: ");
-                    livro = Console.ReadLine();
-
-                    //Atualizar
-                    livro = model.ConsultarLivro;
+                    Console.WriteLine(reserv.ConsultarIndividual(codigo));
                     break;
 
                 case 4:
                     Console.WriteLine("Informe o Codigo do Livro: ");
                     codigo = Convert.ToInt32(Console.ReadLine());
 
-                    Console.WriteLine("Informe a Nova Quantidade: ");
-                    quantidade = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Informe o CPF do Usuário: ");
+                    pessoa = Console.ReadLine();
 
                     //Atualizar
-                    quantidade = model.ConsultarQuantidade;
+                    Console.WriteLine(reserv.Atualizar(codigo, "Pessoa", pessoa));
                     break;
 
                 case 5:
                     Console.WriteLine("Informe o Codigo do Livro: ");
                     codigo = Convert.ToInt32(Console.ReadLine());
 
-                    Console.WriteLine("Informe o Novo Preço: ");
-                    preco = Convert.ToDouble(Console.ReadLine());
+                    Console.WriteLine("Informe o CPF do Usuário: ");
+                    quantidade = Convert.ToInt32(Console.ReadLine());
 
                     //Atualizar
-                    preco = model.ConsultarPreco;
+                    Console.WriteLine(reserv.Atualizar(codigo, "Quantidade", quantidade));
                     break;
 
                 case 6:
@@ -102,8 +101,7 @@ namespace Livraria
                     codigo = Convert.ToInt32(Console.ReadLine());
 
                     //Excluir
-                    model.Excluir(codigo);
-                    Console.WriteLine("Livro Desativado");
+                    reserv.Excluir(codigo);
                     break;
 
                 default:

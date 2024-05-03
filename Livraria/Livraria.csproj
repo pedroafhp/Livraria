@@ -100,6 +100,7 @@
     <Compile Include="ControlReserva.cs" />
     <Compile Include="DAOLivro.cs" />
     <Compile Include="DAOPessoa.cs" />
+    <Compile Include="DAOReserva.cs" />
     <Compile Include="Livro.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Pessoa.cs" />

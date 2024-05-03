@@ -8,17 +8,14 @@ using MySql.Data;
 
 namespace Livraria
 {
-    class DAOLivro
+    class DAOReserva
     {
         public MySqlConnection conexao;
         public string dados;
         public string comando;
         public int[] codigo;
-        public string[] titulo;
-        public string[] autor;
-        public string[] editora;
-        public string[] genero;
-        public string[] ISBN;
+        public string[] livro;
+        public string[] pessoa;
         public int[] quantidade;
         public double[] preco;
         public string[] situacao;
@@ -26,7 +23,7 @@ namespace Livraria
         public int contador;
         public string msg;
         //Construtor
-        public DAOLivro()
+        public DAOReserva()
         {
             conexao = new MySqlConnection("server=localhost;DataBase=livrariaTI20N;Uid=root;Password=");
             try
@@ -41,14 +38,13 @@ namespace Livraria
             }
         }//Fim do Construtor
 
-        public void Inserir(int codigo, string titulo, string autor, string editora,
-                            string genero, string ISBN, int quantidade, double preco, string situacao)
+        public void Inserir(int codigo, string livro, string pessoa,int quantidade, double preco, string situacao)
         {
             try
             {
                 //Declarei as Variáveis e Preparei o Comando
-                dados = $"('{codigo}','{titulo}','{autor}','{editora}','{genero}','{ISBN}','{quantidade}','{preco}','{situacao}')";
-                comando = $"Insert into livro(codigo, titulo, autor, editora, genero, ISBN, quantidade, preco, situacao) values {dados}";
+                dados = $"('{codigo}','{livro}','{pessoa}','{quantidade}','{preco}','{situacao}')";
+                comando = $"Insert into reserva(codigo, livro, pessoa, quantidade, preco, situacao) values {dados}";
 
                 //Engatilhar a Inserção do Banco
                 MySqlCommand sql = new MySqlCommand(comando, conexao);
@@ -65,15 +61,12 @@ namespace Livraria
 
         public void PreencherVetor()
         {
-            string query = "select * from livro";//Coletar os Dados do Banco
+            string query = "select * from reserva";//Coletar os Dados do Banco
 
             //Instanciar
             codigo = new int[100];
-            titulo = new string[100];
-            autor = new string[100];
-            editora = new string[100];
-            genero = new string[100];
-            ISBN = new string[100];
+            livro = new string[100];
+            pessoa = new string[100];
             quantidade = new int[100];
             preco = new double[100];
             situacao = new string[100];
@@ -82,11 +75,8 @@ namespace Livraria
             for (i = 0; i < 100; i++)
             {
                 codigo[i] = 0;
-                titulo[i] = "";
-                autor[i] = "";
-                editora[i] = "";
-                genero[i] = "";
-                ISBN[i] = "";
+                livro[i] = "";
+                pessoa[i] = "";
                 quantidade[i] = 0;
                 preco[i] = 0;
                 situacao[i] = "";
@@ -102,11 +92,8 @@ namespace Livraria
             while (leitura.Read())
             {
                 codigo[i] = Convert.ToInt32(leitura["codigo"]);
-                titulo[i] = leitura["titulo"] + "";
-                autor[i] = leitura["autor"] + "";
-                editora[i] = leitura["editora"] + "";
-                genero[i] = leitura["genero"] + "";
-                ISBN[i] = leitura["ISBN"] + "";
+                livro[i] = leitura["livro"] + "";
+                pessoa[i] = leitura["pessoa"] + "";
                 quantidade[i] = Convert.ToInt32(leitura["quantidade"]);
                 preco[i] = Convert.ToDouble(leitura["preco"]);
                 situacao[i] = leitura["situacao"] + "";
@@ -123,10 +110,8 @@ namespace Livraria
             for (i = 0; i < contador; i++)
             {
                 msg += "\nCodigo: "     + codigo[i] +
-                       ", Titulo: "     + titulo[i] +
-                       ", Autor: "      + autor[i] +
-                       ", Editora: "    + editora[i] +
-                       ", Genero: "     + genero[i] +
+                       ", Livro: "      + livro[i] +
+                       ", Pessoa: "     + pessoa[i] +
                        ", Quantidade: " + quantidade[i] +
                        ", Preco: "      + preco[i] +
                        ", Situação: "   + situacao[i];
@@ -135,18 +120,16 @@ namespace Livraria
             return msg;
         }//Fim do Método
 
-        public string ConsultarIndividual(int cod)
+        public string ConsultarIndividual(int codReserva)
         {
             PreencherVetor();
             for (i = 0; i < contador; i++)
             {
-                if (codigo[i] == cod)
+                if (codigo[i] == codReserva)
                 {
                     msg = "\nCodigo: "      + codigo[i] +
-                          ", Titulo: "      + titulo[i] +
-                          ", Autor: "       + autor[i] +
-                          ", Editora: "     + editora[i] +
-                          ", Genero: "      + genero[i] +
+                          ", Livro: "       + livro[i] +
+                          ", Pessoa: "      + pessoa[i] +
                           ", Quantidade: "  + quantidade[i] +
                           ", Preco: "       + preco[i] +
                           ", Situação: "    + situacao[i];
@@ -157,28 +140,11 @@ namespace Livraria
             return "Código Informado Não é Válido!";
         }//Fim do Consultar Individual
 
-        public double ConsultarPreco(int cod)
-        {
-            PreencherVetor();
-            double pre = 0;
-            for (i = 0; i < contador; i++)
-            {
-                if (codigo[i] == cod)
-                {
-                    pre = preco[i];
-
-                    return pre;
-                }//Fim do If
-            }//Fim do For
-
-            return -1;
-        }//Fim do Consultar Individual
-
-        public string Atualizar(int cod, string campo, string novoDado)
+        public string Atualizar(int codReserva, string campo, string novoDado)
         {
             try
             {
-                string query = "Update Livro Set " + campo + " = '" + novoDado + "' Where Codigo = '" + cod + "'";
+                string query = "Update Reserva Set " + campo + " = '" + novoDado + "' Where Codigo = '" + codReserva + "'";
                 //Executar o Comando
                 MySqlCommand sql = new MySqlCommand(query, conexao);
                 string resultado = "" + sql.ExecuteNonQuery();
@@ -190,11 +156,11 @@ namespace Livraria
             }
         }//Fim do Método
 
-        public string Atualizar(int cod, string campo, int novoDado)
+        public string Atualizar(int codReserva, string campo, int novoDado)
         {
             try
             {
-                string query = "Update Livro Set " + campo + " = '" + novoDado + "' Where Codigo = '" + cod + "'";
+                string query = "Update Reserva Set " + campo + " = '" + novoDado + "' Where Codigo = '" + codReserva + "'";
                 //Executar o Comando
                 MySqlCommand sql = new MySqlCommand(query, conexao);
                 string resultado = "" + sql.ExecuteNonQuery();
@@ -206,11 +172,11 @@ namespace Livraria
             }
         }//Fim do Método
 
-        public string Excluir(int cod)
+        public string Excluir(int codReserva)
         {
             try
             {
-                string query = "Update Livro Set Situacao = 'Inativo' Where Codigo = '" + cod + "'";
+                string query = "Update Reserva Set Situacao = 'Inativo' Where Codigo = '" + codReserva + "'";
                 //Executar o Comando
                 MySqlCommand sql = new MySqlCommand(query, conexao);
                 string resultado = "" + sql.ExecuteNonQuery();
@@ -221,6 +187,5 @@ namespace Livraria
                 return "Algo Deu Errado!\n\n\n" + ex;
             }
         }//Fim do Método
-
     }//Fim da Classe
 }//Fim do Projeto
